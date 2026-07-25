@@ -1,0 +1,7 @@
+{
+  "name": "ai-act-site-downloader",
+  "private": true,
+  "type": "module",
+  "scripts": { "download": "node download_all.mjs" },
+  "dependencies": { "playwright": "^1.54.0" }
+}

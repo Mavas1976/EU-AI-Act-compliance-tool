@@ -1,0 +1,74 @@
+[
+  {
+    "url": "https://ai-act-credit-compliance.vercel.app/",
+    "method": "GET",
+    "status": 200,
+    "resourceType": "document",
+    "contentType": "text/html; charset=utf-8",
+    "file": "responses/79a55ba9f6cb_file.html",
+    "sizeBytes": 805
+  },
+  {
+    "url": "https://ai-act-credit-compliance.vercel.app/assets/index-CXzzfbg4.js",
+    "method": "GET",
+    "status": 200,
+    "resourceType": "script",
+    "contentType": "application/javascript; charset=utf-8",
+    "file": "responses/3519ba53dad4_index-CXzzfbg4.js.js",
+    "sizeBytes": 195223
+  },
+  {
+    "url": "https://ai-act-credit-compliance.vercel.app/assets/index-B79KPy3P.css",
+    "method": "GET",
+    "status": 200,
+    "resourceType": "stylesheet",
+    "contentType": "text/css; charset=utf-8",
+    "file": "responses/695580a4ea35_index-B79KPy3P.css.css",
+    "sizeBytes": 85768
+  },
+  {
+    "url": "https://suhanasayyad-ai-act-compliance-backend.hf.space/api/fria/assess",
+    "method": "POST",
+    "status": 200,
+    "resourceType": "fetch",
+    "contentType": "application/json",
+    "file": "responses/a2c52ac271ec_assess.json",
+    "sizeBytes": 69
+  },
+  {
+    "url": "https://suhanasayyad-ai-act-compliance-backend.hf.space/api/risk/assess",
+    "method": "POST",
+    "status": 200,
+    "resourceType": "fetch",
+    "contentType": "application/json",
+    "file": "responses/e1df4fabfc85_assess.json",
+    "sizeBytes": 71
+  },
+  {
+    "url": "https://suhanasayyad-ai-act-compliance-backend.hf.space/api/cybersecurity/assess",
+    "method": "POST",
+    "status": 200,
+    "resourceType": "fetch",
+    "contentType": "application/json",
+    "file": "responses/4b6c778a1aba_assess.json",
+    "sizeBytes": 60
+  },
+  {
+    "url": "https://suhanasayyad-ai-act-compliance-backend.hf.space/api/xai/assess",
+    "method": "POST",
+    "status": 200,
+    "resourceType": "fetch",
+    "contentType": "application/json",
+    "file": "responses/944ec2345b8f_assess.json",
+    "sizeBytes": 65
+  },
+  {
+    "url": "https://suhanasayyad-ai-act-compliance-backend.hf.space/api/bias/assess",
+    "method": "POST",
+    "status": 200,
+    "resourceType": "fetch",
+    "contentType": "application/json",
+    "file": "responses/a7c306ccdfb7_assess.json",
+    "sizeBytes": 72
+  }
+]
