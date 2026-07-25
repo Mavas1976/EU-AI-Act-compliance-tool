@@ -1,20 +1,20 @@
-# Downloader voor de publieke AI Act Compliance-site
+# Downloader for the public AI Act Compliance site
 
-Deze downloader legt vast wat een normale browser tijdens publiek gebruik ontvangt:
+This downloader captures what a normal browser receives during public usage:
 
-- HTML vóór en na de workflow
-- JavaScript, CSS, afbeeldingen en fonts
-- Fetch/XHR/API-responses
-- Een volledige HAR met response-inhoud
-- Local Storage, Session Storage en zichtbare cookies
-- Door de site aangeboden downloads
-- Screenshots en een URL-manifest
+- HTML before and after the workflow
+- JavaScript, CSS, images and fonts
+- Fetch/XHR/API responses
+- A complete HAR with response content
+- Local Storage, Session Storage and visible cookies
+- Downloads offered by the site
+- Screenshots and a URL manifest
 
-Hij omzeilt geen login, autorisatie of andere beveiliging. Gebruik uitsluitend fictieve gegevens.
+It does not bypass any login, authorisation or other security measures. Use only fictitious data.
 
-## Uitvoeren
+## Running
 
-Installeer Node.js 20 of hoger. Open daarna een terminal in deze map:
+Install Node.js 20 or higher. Then open a terminal in this directory:
 
 ```bash
 npm install
@@ -22,8 +22,8 @@ npx playwright install chromium
 npm run download
 ```
 
-Er opent een browser. Doorloop de hele tool, download alle rapporten en druk daarna in de terminal op Enter. De resultaten verschijnen in `downloaded-site/`.
+A browser will open. Walk through the entire tool, download all reports, then press Enter in the terminal. The results will appear in `downloaded-site/`.
 
-## Belangrijk
+## Important
 
-Voer geen echte klant-, ING-, model- of persoonsgegevens in. De tool kan invoer naar externe API's sturen of server-side bewaren.
+Do not enter any real customer, bank, model or personal data. The tool may send input to external APIs or store it server-side.
