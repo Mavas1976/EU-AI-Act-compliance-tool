@@ -12,6 +12,6 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml* package-lock.json* yarn.lock* ./
 RUN npm install --omit=dev --legacy-peer-deps
 COPY --from=build /app/dist ./dist
-COPY server.js ./
+COPY server.cjs ./
 EXPOSE 3000
-CMD ["node", "server.js"]
+CMD ["node", "server.cjs"]
