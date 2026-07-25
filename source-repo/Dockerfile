@@ -9,7 +9,7 @@ RUN if [ -d "source-repo" ]; then cd source-repo && npm install --legacy-peer-de
 # Production stage - lightweight static server
 FROM node:20-slim AS production
 WORKDIR /app
-RUN npm install -g serve@14
 COPY --from=build /app/dist ./dist
+COPY server.js ./
 EXPOSE 3000
-CMD serve dist -s -l $PORT
+CMD ["node", "server.js"]
