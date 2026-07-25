@@ -10,6 +10,6 @@ RUN if [ -d "source-repo" ]; then cd source-repo && npm install --legacy-peer-de
 FROM nginx:alpine AS production
 ENV PORT=80
 COPY --from=build /app/dist /usr/share/nginx/html
-COPY default.conf.template* source-repo/default.conf.template* /etc/nginx/templates/default.conf.template
+COPY default.conf.template /etc/nginx/templates/default.conf.template
 EXPOSE 80 3000
 CMD ["nginx", "-g", "daemon off;"]
