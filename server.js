@@ -1,10 +1,7 @@
-import http from 'http';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 const PORT = process.env.PORT || 3000;
 const DIST = path.join(__dirname, 'dist');
 
@@ -20,18 +17,21 @@ const MIME_TYPES = {
   '.woff2': 'font/woff2'
 };
 
-http.createServer((req, res) => {
-  let filePath = path.join(DIST, req.url.split('?')[0]);
+const server = http.createServer((req, res) => {
+  let reqUrl = (req.url || '/').split('?')[0];
+  let filePath = path.join(DIST, reqUrl === '/' ? 'index.html' : reqUrl);
+  
   if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
     filePath = path.join(DIST, 'index.html');
   }
+  
   const ext = path.extname(filePath).toLowerCase();
   const contentType = MIME_TYPES[ext] || 'application/octet-stream';
 
   fs.readFile(filePath, (err, content) => {
     if (err) {
       res.writeHead(500);
-      res.end('Server Error');
+      res.end('Server Error: ' + err.message);
     } else {
       res.writeHead(200, { 
         'Content-Type': contentType,
@@ -40,6 +40,8 @@ http.createServer((req, res) => {
       res.end(content, 'utf-8');
     }
   });
-}).listen(Number(PORT), '0.0.0.0', () => {
+});
+
+server.listen(Number(PORT), '0.0.0.0', () => {
   console.log(`Frontend SPA server running on http://0.0.0.0:${PORT}`);
 });
