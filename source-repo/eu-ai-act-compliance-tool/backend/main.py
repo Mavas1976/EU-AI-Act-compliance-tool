@@ -1,7 +1,7 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routes import fria, cybersecurity, xai, bias, risk
+from routes import fria, cybersecurity, xai, bias, risk, demo_model
 from database import test_connection
 
 @asynccontextmanager
@@ -29,6 +29,7 @@ app.include_router(cybersecurity.router, prefix="/api/cybersecurity", tags=["Cyb
 app.include_router(xai.router, prefix="/api/xai", tags=["XAI"])
 app.include_router(bias.router, prefix="/api/bias", tags=["Bias Detection"])
 app.include_router(risk.router, prefix="/api/risk", tags=["Risk Scoring"])
+app.include_router(demo_model.router, prefix="/api/demo-model", tags=["Demo Model (BYOM)"])
 
 @app.get("/")
 async def root():
@@ -36,7 +37,8 @@ async def root():
         "message": "EU AI Act Compliance Tool API is running",
         "version": "1.0.0",
         "docs": "/docs",
-        "articles": ["Art.27 FRIA","Art.15 Cybersecurity","Art.13 XAI","Art.9 Risk","Art.10(5) Bias"]
+        "articles": ["Art.27 FRIA","Art.15 Cybersecurity","Art.13 XAI","Art.9 Risk","Art.10(5) Bias"],
+        "byom": "/api/demo-model/info"
     }
 
 @app.get("/health")

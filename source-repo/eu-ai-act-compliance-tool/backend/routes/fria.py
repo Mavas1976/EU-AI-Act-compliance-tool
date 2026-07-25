@@ -259,8 +259,35 @@ async def assess_fria(system: CreditScoringSystem):
 
         return {
             "system_name": system.system_name,
+            "organisation_name": system.organisation_name,
             "article": "Article 27 - EU AI Act",
             "assessment_type": "Fundamental Rights Impact Assessment",
+            "registration_details": {
+                "system_name": system.system_name,
+                "organisation_name": system.organisation_name,
+                "intended_purpose": system.intended_purpose,
+                "deployment_sector": system.deployment_sector,
+                "affected_population": system.affected_population or "Not specified",
+                "estimated_users_per_year": system.estimated_users_per_year,
+                "model_type": system.model_type or "Not specified",
+                "model_version": system.model_version,
+            },
+            "data_governance": {
+                "data_sources": system.data_sources or "Not specified",
+                "data_retention_period": system.data_retention_period or "Not specified",
+                "uses_personal_data": system.uses_personal_data,
+                "uses_special_category_data": system.uses_special_category_data,
+                "third_party_data_sharing": system.third_party_data_sharing,
+            },
+            "deployer_information": {
+                "automated_decision_making": system.automated_decision_making,
+                "human_oversight_available": system.human_oversight_available,
+                "explainability_method": system.explainability_method or "Not specified",
+                "audit_logging_enabled": system.audit_logging_enabled,
+                "access_controls_implemented": system.access_controls_implemented,
+                "previously_audited": system.previously_audited,
+                "external_api_access": system.external_api_access,
+            },
             "overall_risk_level": overall,
             "overall_confidence": {
                 "score": round(sum(r["confidence"]["score"] for r in rights_assessed) / len(rights_assessed)) if rights_assessed else 50,

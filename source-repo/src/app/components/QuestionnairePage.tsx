@@ -39,6 +39,7 @@ const STEPS: Step[] = [
         help: "The underlying algorithm class. This influences transparency obligations under Article 13." },
       { id: "1.4", label: "Does the system make fully automated decisions without human review?", type: "toggle", help: "Fully automated decisions trigger Article 22 GDPR safeguards and AI Act oversight requirements under Article 14." },
       { id: "1.5", label: "Is human oversight available to review decisions?",                    type: "toggle", help: "Article 14 requires high-risk systems to be designed so natural persons can effectively oversee, intervene, and override outputs." },
+      { id: "1.6", label: "Model API endpoint (optional — enables BYOM)", type: "text", placeholder: `e.g. ${BASE_URL}/api/demo-model/predict`, help: "If your credit scoring model has a REST API, enter the prediction endpoint URL. The tool will assess your actual model's behaviour instead of a reference dataset proxy. Leave blank to use the built-in reference analysis." },
     ],
   },
   {
@@ -135,7 +136,7 @@ export function QuestionnairePage({ onBack, onComplete }: Props) {
       known_bias_issues:            toggleValues["3.5"] ?? false,
       deployment_sector:            "Banking and Financial Services",
       explainability_method:        explainMap[answers["4.1"] || "None"] ?? "None",
-      model_api_endpoint:           null,
+      model_api_endpoint:           (answers["1.6"] || "").trim() || null,
     };
     return result;
   }
