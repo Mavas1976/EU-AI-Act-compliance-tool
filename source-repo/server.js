@@ -44,15 +44,11 @@ function handle(req, res) {
   });
 }
 
-// Bind targetPort, 3000, 80, 8080 uniquely
-const ports = Array.from(new Set([targetPort, 3000, 80, 8080])).filter(p => !isNaN(p) && p > 0);
+// Bind unprivileged ports only (>= 1024) to avoid Linux EACCES permission errors
+const ports = Array.from(new Set([targetPort, 3000, 8080, 7860])).filter(p => !isNaN(p) && p >= 1024);
 
 ports.forEach(port => {
-  try {
-    const s = http.createServer(handle);
-    s.on('error', (e) => console.log(`[PORT ${port}] Warning: ${e.message}`));
-    s.listen(port, '0.0.0.0', () => console.log(`[ONLINE] Listening on http://0.0.0.0:${port}`));
-  } catch (e) {
-    console.log(`[PORT ${port}] Catch error: ${e.message}`);
-  }
+  const s = http.createServer(handle);
+  s.on('error', (e) => console.log(`[PORT ${port}] Warning: ${e.message}`));
+  s.listen(port, '0.0.0.0', () => console.log(`[ONLINE] Listening on http://0.0.0.0:${port}`));
 });

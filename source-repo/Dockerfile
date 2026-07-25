@@ -11,5 +11,5 @@ FROM node:20-slim AS production
 WORKDIR /app
 COPY --from=build /app/dist ./dist
 COPY server.js ./
-EXPOSE 80 3000
+EXPOSE 3000
 CMD ["node", "server.js"]
