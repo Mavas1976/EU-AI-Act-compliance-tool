@@ -6,11 +6,9 @@ ARG VITE_API_BASE_URL
 ENV VITE_API_BASE_URL=${VITE_API_BASE_URL}
 RUN if [ -d "source-repo" ]; then cd source-repo && npm install --legacy-peer-deps && npm run build && cp -r dist /app/dist; else npm install --legacy-peer-deps && npm run build; fi
 
-# Production stage - Express.js SPA server
+# Production stage - zero-dependency Node.js HTTP server
 FROM node:20-slim AS production
 WORKDIR /app
-COPY package.json pnpm-lock.yaml* package-lock.json* yarn.lock* ./
-RUN npm install --omit=dev --legacy-peer-deps
 COPY --from=build /app/dist ./dist
 COPY server.cjs ./
 EXPOSE 3000
