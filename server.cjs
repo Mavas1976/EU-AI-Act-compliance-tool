@@ -2,25 +2,14 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = process.env.PORT || 3000;
 const DIST = path.join(__dirname, 'dist');
+const port1 = Number(process.env.PORT || 3000);
+const port2 = 3000;
 
-console.log(`[STARTUP] Built-in HTTP SPA Server starting on port ${PORT}`);
+console.log(`[STARTUP] Built-in HTTP SPA Server starting. process.env.PORT: ${process.env.PORT}`);
 console.log(`[STARTUP] DIST path: ${DIST}, exists: ${fs.existsSync(DIST)}`);
 
-const MIME_TYPES = {
-  '.html': 'text/html',
-  '.js': 'text/javascript',
-  '.css': 'text/css',
-  '.json': 'application/json',
-  '.png': 'image/png',
-  '.jpg': 'image/jpg',
-  '.svg': 'image/svg+xml',
-  '.ico': 'image/x-icon',
-  '.woff2': 'font/woff2'
-};
-
-const server = http.createServer((req, res) => {
+function handleRequest(req, res) {
   const urlPath = (req.url || '/').split('?')[0];
   
   if (urlPath === '/health') {
@@ -33,6 +22,17 @@ const server = http.createServer((req, res) => {
     filePath = path.join(DIST, 'index.html');
   }
 
+  const MIME_TYPES = {
+    '.html': 'text/html',
+    '.js': 'text/javascript',
+    '.css': 'text/css',
+    '.json': 'application/json',
+    '.png': 'image/png',
+    '.jpg': 'image/jpg',
+    '.svg': 'image/svg+xml',
+    '.ico': 'image/x-icon',
+    '.woff2': 'font/woff2'
+  };
   const ext = path.extname(filePath).toLowerCase();
   const contentType = MIME_TYPES[ext] || 'application/octet-stream';
 
@@ -48,8 +48,19 @@ const server = http.createServer((req, res) => {
       res.end(content, 'utf-8');
     }
   });
-});
+}
 
-server.listen(Number(PORT), '0.0.0.0', () => {
-  console.log(`[ONLINE] HTTP SPA server listening on http://0.0.0.0:${PORT}`);
+// Bind both port1 (process.env.PORT) and port2 (3000) uniquely
+const portsToListen = Array.from(new Set([port1, port2])).filter(p => !isNaN(p) && p > 0);
+
+portsToListen.forEach(p => {
+  try {
+    const srv = http.createServer(handleRequest);
+    srv.on('error', (e) => console.log(`[PORT ${p}] Note: ${e.message}`));
+    srv.listen(p, '0.0.0.0', () => {
+      console.log(`[ONLINE] HTTP SPA server listening on http://0.0.0.0:${p}`);
+    });
+  } catch (e) {
+    console.log(`[PORT ${p}] Exception: ${e.message}`);
+  }
 });
