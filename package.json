@@ -2,6 +2,10 @@
   "name": "ai-act-site-downloader",
   "private": true,
   "type": "module",
-  "scripts": { "download": "node download_all.mjs" },
+  "scripts": { 
+    "download": "node download_all.mjs",
+    "build": "cd source-repo && npm install --legacy-peer-deps && npm run build",
+    "start": "cd source-repo && npm run start"
+  },
   "dependencies": { "playwright": "^1.54.0" }
 }
