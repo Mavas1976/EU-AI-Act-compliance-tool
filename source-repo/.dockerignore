@@ -1,0 +1,6 @@
+node_modules
+dist
+.git
+eu-ai-act-compliance-tool/backend/venv
+eu-ai-act-compliance-tool/backend/__pycache__
+eu-ai-act-compliance-tool/backend/data
