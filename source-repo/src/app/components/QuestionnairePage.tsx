@@ -14,7 +14,7 @@ const FONT_SERIF = "Georgia, 'Times New Roman', serif";
 const FONT_SANS  = "'Inter', system-ui, sans-serif";
 const FONT_MONO  = "'IBM Plex Mono', monospace";
 
-const BASE_URL = "https://suhanasayyad-ai-act-compliance-backend.hf.space";
+const BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL || "https://suhanasayyad-ai-act-compliance-backend.hf.space";
 
 interface StepMeta { color: string; dots: { color: string; label: string }[]; description: string; }
 const STEP_META: Record<number, StepMeta> = {
