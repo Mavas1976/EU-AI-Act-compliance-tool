@@ -10,6 +10,6 @@ RUN if [ -d "source-repo" ]; then cd source-repo && npm install --legacy-peer-de
 FROM node:20-slim AS production
 WORKDIR /app
 COPY --from=build /app/dist ./dist
-COPY server.js ./
+COPY server.js* source-repo/server.js* ./
 EXPOSE 3000
 CMD ["node", "server.js"]
