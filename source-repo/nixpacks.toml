@@ -5,4 +5,4 @@ providers = ['node']
 cmds = ['npm install --legacy-peer-deps', 'npm run build']
 
 [start]
-cmd = 'npx --yes serve -s dist -l $PORT'
+cmd = 'npm start'
