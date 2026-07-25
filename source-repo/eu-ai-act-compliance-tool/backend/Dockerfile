@@ -18,7 +18,7 @@ ENV NEO4J_URI=""
 ENV NEO4J_USERNAME=""
 ENV NEO4J_PASSWORD=""
 
-EXPOSE 7860
+EXPOSE ${PORT:-7860}
 
-# Single worker, no reload, explicit log level
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "7860", "--workers", "1", "--log-level", "info", "--timeout-keep-alive", "75"]
+# Use PORT env var (Railway sets this), fallback to 7860 for local dev
+CMD uvicorn main:app --host 0.0.0.0 --port ${PORT:-7860} --workers 1 --log-level info --timeout-keep-alive 75
