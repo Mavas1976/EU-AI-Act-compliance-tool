@@ -1,4 +1,5 @@
 import express from 'express';
+import http from 'http';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
@@ -7,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const targetPort = Number(process.env.PORT || 3000);
 const DIST = path.join(__dirname, 'dist');
 
 console.log(`[EXPRESS STARTUP] PORT env: ${process.env.PORT}`);
@@ -29,6 +30,19 @@ app.get('*', (req, res) => {
   }
 });
 
-app.listen(Number(PORT), '0.0.0.0', () => {
-  console.log(`[ONLINE] Express frontend server listening on http://0.0.0.0:${PORT}`);
+// Bind to targetPort, 80, 3000, 8080, 7860 simultaneously
+const portsToBind = Array.from(new Set([targetPort, 80, 3000, 8080, 7860])).filter(p => !isNaN(p) && p > 0);
+
+portsToBind.forEach(port => {
+  try {
+    const srv = http.createServer(app);
+    srv.on('error', (err) => {
+      console.log(`[PORT ${port}] Warning: ${err.message}`);
+    });
+    srv.listen(port, '0.0.0.0', () => {
+      console.log(`[ONLINE] Express listening on http://0.0.0.0:${port}`);
+    });
+  } catch (err) {
+    console.log(`[PORT ${port}] Exception: ${err.message}`);
+  }
 });
