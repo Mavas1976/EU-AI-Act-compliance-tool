@@ -1,0 +1,8 @@
+[providers]
+providers = ['node']
+
+[phases.build]
+cmds = ['cd source-repo && npm install --legacy-peer-deps && npm run build']
+
+[start]
+cmd = 'npx serve -s source-repo/dist -l $PORT'
