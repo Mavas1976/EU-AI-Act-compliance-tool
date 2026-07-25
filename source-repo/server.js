@@ -2,7 +2,6 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = process.env.PORT || 3000;
 const DIST = path.join(__dirname, 'dist');
 
 console.log(`[STARTUP] Environment PORT: ${process.env.PORT}`);
@@ -12,7 +11,7 @@ if (fs.existsSync(DIST)) {
   console.log(`[STARTUP] DIST contents:`, fs.readdirSync(DIST));
 }
 
-const server = http.createServer((req, res) => {
+function handleRequest(req, res) {
   console.log(`[REQUEST] ${req.method} ${req.url}`);
   
   if (req.url === '/health') {
@@ -58,8 +57,24 @@ const server = http.createServer((req, res) => {
       res.end(content, 'utf-8');
     }
   });
-});
+}
 
-server.listen(Number(PORT), '0.0.0.0', () => {
-  console.log(`[ONLINE] Frontend SPA server running on http://0.0.0.0:${PORT}`);
+// Bind to process.env.PORT + common fallback ports (3000, 7860, 8080, 80)
+const portsToTry = new Set([
+  Number(process.env.PORT || 3000),
+  3000,
+  7860,
+  8080,
+  80
+]);
+
+portsToTry.forEach(port => {
+  if (isNaN(port)) return;
+  const srv = http.createServer(handleRequest);
+  srv.on('error', (err) => {
+    console.log(`[PORT ${port}] Warning: ${err.message}`);
+  });
+  srv.listen(port, '0.0.0.0', () => {
+    console.log(`[ONLINE] Listening on http://0.0.0.0:${port}`);
+  });
 });
